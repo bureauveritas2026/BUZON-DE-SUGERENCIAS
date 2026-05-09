@@ -146,40 +146,50 @@ input:focus, select:focus, textarea:focus {
     box-shadow: var(--shadow-md);
 }
 
-/* --- NAVIGATION TABS --- */
-.main-nav {
+/* --- MAIN LAYOUT (TWO COLUMNS) --- */
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.column-section {
+    width: 100%;
+}
+
+.wall-container {
+    height: 100%;
+    min-height: 600px;
     display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    flex-direction: column;
 }
 
-.nav-btn {
-    background: #e2e8f0;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    color: var(--brand-muted);
-    cursor: pointer;
-    font-weight: 700;
-    transition: all 0.2s;
+.wall-stack {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+    max-height: 800px;
+    padding-right: 0.5rem;
 }
 
-.nav-btn.active {
-    background: var(--brand-primary);
-    color: white;
-    box-shadow: var(--shadow-md);
+/* Custom Scrollbar for Wall */
+.wall-stack::-webkit-scrollbar {
+    width: 6px;
+}
+.wall-stack::-webkit-scrollbar-thumb {
+    background: var(--brand-border);
+    border-radius: 10px;
 }
 
-.app-section {
-    display: none;
-}
-
-.app-section.active {
-    display: block;
+.admin-footer {
+    text-align: center;
+    padding: 2rem 0;
 }
 
 /* --- WALL OF FAME (APPROVED SUGGESTIONS) --- */

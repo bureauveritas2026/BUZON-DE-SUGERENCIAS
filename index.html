@@ -9,85 +9,72 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <header>
+    <div class="container main-layout">
+        <!-- Header -->
+        <header class="full-width">
             <h1>Buzón de Sugerencias</h1>
             <p>Tu voz ayuda a construir un mejor lugar para todos.</p>
         </header>
 
-        <!-- Navigation Tabs -->
-        <nav class="main-nav">
-            <button class="nav-btn active" data-target="main-content">
-                <i class="fas fa-edit"></i> Enviar Sugerencia
-            </button>
-            <button class="nav-btn" data-target="wall-section">
-                <i class="fas fa-award"></i> Muro de Éxito
-            </button>
-        </nav>
-
-        <!-- Form Section -->
-        <main id="main-content" class="app-section active">
+        <!-- Left Column: Form -->
+        <main id="main-content" class="column-section">
             <section class="section-card">
-                <h2 class="form-title"><i class="fas fa-edit"></i> Envía tu Sugerencia</h2>
+                <h2 class="form-title"><i class="fas fa-edit"></i> Nueva Sugerencia</h2>
                 <form id="suggestion-form">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" required placeholder="Escribe tu nombre">
-                        </div>
-                        <div class="form-group">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" id="apellido" name="apellido" required placeholder="Escribe tu apellido">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="area">Área de Trabajo</label>
-                            <select id="area" name="area" required>
-                                <option value="" disabled selected>Selecciona tu área</option>
-                                <option value="GRP">GRP</option>
-                                <option value="TH">TH</option>
-                                <option value="MTTO">MTTO</option>
-                                <option value="TI">TI</option>
-                                <option value="CONTRALORIA">CONTRALORIA</option>
-                                <option value="VENTAS">VENTAS</option>
-                                <option value="RESERVAS">RESERVAS</option>
-                                <option value="HK">HK</option>
-                                <option value="COCINA">COCINA</option>
-                                <option value="AYB">AYB</option>
-                                <option value="STEWARD">STEWARD</option>
-                                <option value="RECEPCION">RECEPCION</option>
-                            </select>
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="sugerencia">¿Qué sugerencia tienes?</label>
-                            <textarea id="sugerencia" name="sugerencia" rows="5" required placeholder="Describe tu idea aquí..."></textarea>
-                        </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" required placeholder="Tu apellido">
+                    </div>
+                    <div class="form-group">
+                        <label for="area">Área de Trabajo</label>
+                        <select id="area" name="area" required>
+                            <option value="" disabled selected>Selecciona tu área</option>
+                            <option value="GRP">GRP</option>
+                            <option value="TH">TH</option>
+                            <option value="MTTO">MTTO</option>
+                            <option value="TI">TI</option>
+                            <option value="CONTRALORIA">CONTRALORIA</option>
+                            <option value="VENTAS">VENTAS</option>
+                            <option value="RESERVAS">RESERVAS</option>
+                            <option value="HK">HK</option>
+                            <option value="COCINA">COCINA</option>
+                            <option value="AYB">AYB</option>
+                            <option value="STEWARD">STEWARD</option>
+                            <option value="RECEPCION">RECEPCION</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sugerencia">¿Qué sugerencia tienes?</label>
+                        <textarea id="sugerencia" name="sugerencia" rows="6" required placeholder="Describe tu idea aquí..."></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" id="submit-btn">
                         <i class="fas fa-paper-plane"></i> Enviar Sugerencia
                     </button>
                 </form>
             </section>
-            
-            <div class="admin-link">
-                <a href="#" id="show-login">Acceso Administrativo</a>
-            </div>
         </main>
 
-        <!-- Wall of Fame Section -->
-        <section id="wall-section" class="app-section">
-            <div class="wall-header">
-                <h2 style="color: var(--brand-primary);"><i class="fas fa-award"></i> Sugerencias Aprobadas</h2>
-            </div>
-            <div id="approved-suggestions-grid" class="wall-grid">
-                <!-- Approved cards will be injected here -->
-                <div style="text-align: center; grid-column: 1/-1; padding: 2rem; color: var(--brand-muted);">
-                    <i class="fas fa-spinner fa-spin"></i> Cargando historias de éxito...
+        <!-- Right Column: Wall of Fame -->
+        <aside id="wall-section" class="column-section">
+            <div class="section-card wall-container">
+                <h2 class="form-title"><i class="fas fa-award"></i> Muro de Éxito</h2>
+                <div id="approved-suggestions-grid" class="wall-stack">
+                    <!-- Approved cards will be injected here -->
+                    <div style="text-align: center; padding: 2rem; color: var(--brand-muted);">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando historias de éxito...
+                    </div>
                 </div>
             </div>
-            <div class="admin-link">
-                <a href="#" class="back-to-form">Volver al Formulario</a>
-            </div>
-        </section>
+        </aside>
+
+        <!-- Footer Admin Link -->
+        <footer class="full-width admin-footer">
+            <a href="#" id="show-login">Acceso Administrativo</a>
+        </footer>
 
         <!-- Admin Login Section -->
         <section id="login-section" class="section-card hidden fade-in" style="max-width: 500px; margin: 2rem auto;">

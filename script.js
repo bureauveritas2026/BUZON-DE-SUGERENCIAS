@@ -22,23 +22,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // Navigation Logic
-const navButtons = document.querySelectorAll('.nav-btn');
-navButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        navButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const target = btn.dataset.target;
-        showSection(target);
-    });
-});
-
-document.querySelectorAll('.back-to-form').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        navButtons[0].click();
-    });
-});
-
 document.getElementById('show-login').addEventListener('click', (e) => {
     e.preventDefault();
     showSection('login-section');
@@ -46,31 +29,27 @@ document.getElementById('show-login').addEventListener('click', (e) => {
 
 document.getElementById('back-to-main').addEventListener('click', (e) => {
     e.preventDefault();
-    navButtons[0].click();
+    showSection('main-layout');
 });
 
 document.getElementById('logout-btn').addEventListener('click', () => {
     sessionStorage.removeItem('isAdmin');
-    navButtons[0].click();
+    showSection('main-layout');
 });
 
 function showSection(id) {
     // Hide everything first
-    [mainContent, loginSection, adminDashboard, document.getElementById('wall-section')].forEach(s => {
-        if (s) {
-            s.classList.remove('active');
-            s.classList.add('hidden');
-        }
+    [document.querySelector('.main-layout'), loginSection, adminDashboard].forEach(s => {
+        if (s) s.classList.add('hidden');
     });
 
-    const target = document.getElementById(id);
+    const target = (id === 'main-layout') ? document.querySelector('.main-layout') : document.getElementById(id);
     if (target) {
         target.classList.remove('hidden');
-        target.classList.add('active');
     }
     
     if (id === 'admin-dashboard') loadAdminData();
-    if (id === 'wall-section') loadPublicWall();
+    if (id === 'main-layout') loadPublicWall();
 }
 
 // Form Submission
