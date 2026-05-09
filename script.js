@@ -62,6 +62,18 @@ document.getElementById('logout-btn').addEventListener('click', () => {
     tabs[0].click();
 });
 
+document.getElementById('refresh-admin-btn').addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    const icon = btn.querySelector('i');
+    icon.classList.add('fa-spin');
+    btn.disabled = true;
+    
+    await loadAdminDashboard(); // This fetches fresh data
+    
+    icon.classList.remove('fa-spin');
+    btn.disabled = false;
+});
+
 // Auto Login check
 if (sessionStorage.getItem('isAdmin')) {
     // Optional: Auto redirect to admin if already logged in. But let's leave them on form until they click admin.
@@ -239,6 +251,13 @@ function renderCharts(data) {
     const areaCounts = {};
     data.forEach(s => { areaCounts[s.area] = (areaCounts[s.area] || 0) + 1; });
 
+    // Paleta de colores variada para las áreas
+    const areaColors = [
+        '#0ea5e9', '#8b5cf6', '#f43f5e', '#10b981', '#f59e0b', 
+        '#ec4899', '#14b8a6', '#6366f1', '#f97316', '#84cc16', 
+        '#64748b', '#d946ef'
+    ];
+
     const ctxBar = document.getElementById('barChart').getContext('2d');
     if (barChartInstance) barChartInstance.destroy();
     barChartInstance = new Chart(ctxBar, {
@@ -248,7 +267,7 @@ function renderCharts(data) {
             datasets: [{
                 label: 'Sugerencias',
                 data: Object.values(areaCounts),
-                backgroundColor: '#0d9488',
+                backgroundColor: areaColors.slice(0, Object.keys(areaCounts).length),
                 borderRadius: 6
             }]
         },
