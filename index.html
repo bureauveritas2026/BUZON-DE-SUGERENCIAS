@@ -9,135 +9,180 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container main-layout">
+    <div class="app-container">
         <!-- Header -->
-        <header class="full-width">
-            <h1>Buzón de Sugerencias</h1>
-            <p>Tu voz ayuda a construir un mejor lugar para todos.</p>
+        <header class="app-header">
+            <div class="logo-area">
+                <i class="fas fa-lightbulb main-icon"></i>
+                <div>
+                    <h1>Buzón de Ideas</h1>
+                    <p>Tu voz construye un mejor GHL Holiday</p>
+                </div>
+            </div>
+            <a href="#" id="show-admin-login" class="admin-login-link" title="Acceso Administrativo"><i class="fas fa-user-shield"></i></a>
         </header>
 
-        <!-- Left Column: Form -->
-        <main id="main-content" class="column-section">
-            <section class="section-card">
-                <h2 class="form-title"><i class="fas fa-edit"></i> Nueva Sugerencia</h2>
+        <!-- Main Navigation Tabs -->
+        <nav class="tabs-nav" id="main-tabs">
+            <button class="tab-btn active" data-target="view-form">
+                <i class="fas fa-paper-plane"></i> Nueva Sugerencia
+            </button>
+            <button class="tab-btn" data-target="view-wall">
+                <i class="fas fa-star"></i> Muro de Éxito
+            </button>
+        </nav>
+
+        <!-- View 1: Suggestion Form -->
+        <main id="view-form" class="view-section active fade-in">
+            <div class="card form-card">
+                <h2 class="card-title">Comparte tu Idea</h2>
                 <form id="suggestion-form">
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="nombre"><i class="fas fa-user"></i> Nombre</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                        </div>
+                        <div class="input-group">
+                            <label for="apellido"><i class="fas fa-user"></i> Apellido</label>
+                            <input type="text" id="apellido" name="apellido" required placeholder="Tu apellido">
+                        </div>
+                        <div class="input-group full-width">
+                            <label for="area"><i class="fas fa-building"></i> Área de Trabajo</label>
+                            <select id="area" name="area" required>
+                                <option value="" disabled selected>Selecciona tu área...</option>
+                                <option value="GRP">GRP</option>
+                                <option value="TH">TH</option>
+                                <option value="MTTO">MTTO</option>
+                                <option value="TI">TI</option>
+                                <option value="CONTRALORIA">CONTRALORIA</option>
+                                <option value="VENTAS">VENTAS</option>
+                                <option value="RESERVAS">RESERVAS</option>
+                                <option value="HK">HK</option>
+                                <option value="COCINA">COCINA</option>
+                                <option value="AYB">AYB</option>
+                                <option value="STEWARD">STEWARD</option>
+                                <option value="RECEPCION">RECEPCION</option>
+                            </select>
+                        </div>
+                        <div class="input-group full-width">
+                            <label for="sugerencia"><i class="fas fa-comment-dots"></i> ¿Cuál es tu propuesta?</label>
+                            <textarea id="sugerencia" name="sugerencia" rows="5" required placeholder="Describe los detalles de tu gran idea..."></textarea>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="apellido">Apellido</label>
-                        <input type="text" id="apellido" name="apellido" required placeholder="Tu apellido">
-                    </div>
-                    <div class="form-group">
-                        <label for="area">Área de Trabajo</label>
-                        <select id="area" name="area" required>
-                            <option value="" disabled selected>Selecciona tu área</option>
-                            <option value="GRP">GRP</option>
-                            <option value="TH">TH</option>
-                            <option value="MTTO">MTTO</option>
-                            <option value="TI">TI</option>
-                            <option value="CONTRALORIA">CONTRALORIA</option>
-                            <option value="VENTAS">VENTAS</option>
-                            <option value="RESERVAS">RESERVAS</option>
-                            <option value="HK">HK</option>
-                            <option value="COCINA">COCINA</option>
-                            <option value="AYB">AYB</option>
-                            <option value="STEWARD">STEWARD</option>
-                            <option value="RECEPCION">RECEPCION</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="sugerencia">¿Qué sugerencia tienes?</label>
-                        <textarea id="sugerencia" name="sugerencia" rows="6" required placeholder="Describe tu idea aquí..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Enviar Sugerencia
+                    <button type="submit" class="btn-submit" id="submit-btn">
+                        <span>Enviar Propuesta</span> <i class="fas fa-arrow-right"></i>
                     </button>
                 </form>
-            </section>
+            </div>
         </main>
 
-        <!-- Right Column: Wall of Fame -->
-        <aside id="wall-section" class="column-section">
-            <div class="section-card wall-container">
-                <h2 class="form-title"><i class="fas fa-award"></i> Muro de Éxito</h2>
-                <div id="approved-suggestions-grid" class="wall-stack">
-                    <!-- Approved cards will be injected here -->
-                    <div style="text-align: center; padding: 2rem; color: var(--brand-muted);">
-                        <i class="fas fa-spinner fa-spin"></i> Cargando historias de éxito...
+        <!-- View 2: Wall of Fame -->
+        <section id="view-wall" class="view-section fade-in hidden">
+            <div class="wall-grid" id="wall-container">
+                <!-- Cards injected via JS -->
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i> Cargando historias inspiradoras...
+                </div>
+            </div>
+        </section>
+
+        <!-- View 3: Admin Login -->
+        <section id="view-login" class="view-section fade-in hidden">
+            <div class="card login-card">
+                <h2 class="card-title text-center"><i class="fas fa-lock"></i> Administración</h2>
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="username">Usuario</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit" class="btn-submit w-full">Ingresar</button>
+                    <div class="text-center mt-4">
+                        <a href="#" class="back-to-home text-muted">Volver al Inicio</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- View 4: Admin Dashboard -->
+        <section id="view-admin" class="view-section fade-in hidden">
+            <div class="admin-header">
+                <h2><i class="fas fa-chart-pie"></i> Panel de Gestión</h2>
+                <button id="logout-btn" class="btn-outline"><i class="fas fa-sign-out-alt"></i> Salir</button>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon bg-blue"><i class="fas fa-inbox"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-total">0</span>
+                        <span class="stat-label">Total Ideas</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon bg-yellow"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-pending">0</span>
+                        <span class="stat-label">Pendientes</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon bg-green"><i class="fas fa-check"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-approved">0</span>
+                        <span class="stat-label">Aprobadas</span>
                     </div>
                 </div>
             </div>
-        </aside>
 
-        <!-- Footer Admin Link -->
-        <footer class="full-width admin-footer">
-            <a href="#" id="show-login">Acceso Administrativo</a>
-        </footer>
+            <div class="charts-grid">
+                <div class="card chart-card">
+                    <h3>Distribución por Área</h3>
+                    <div class="chart-wrapper"><canvas id="barChart"></canvas></div>
+                </div>
+                <div class="card chart-card">
+                    <h3>Estado de Sugerencias</h3>
+                    <div class="chart-wrapper"><canvas id="pieChart"></canvas></div>
+                </div>
+            </div>
 
-        <!-- Admin Login Section -->
-        <section id="login-section" class="section-card hidden fade-in" style="max-width: 500px; margin: 2rem auto;">
-            <h2 class="form-title"><i class="fas fa-lock"></i> Administración</h2>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="username">Usuario</label>
-                    <input type="text" id="username" name="username" required>
+            <div class="card table-card">
+                <div class="table-controls">
+                    <h3><i class="fas fa-list"></i> Lista de Sugerencias</h3>
+                    <div class="filters">
+                        <select id="filter-status">
+                            <option value="all">Todos los estados</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="En Proceso">En Proceso</option>
+                            <option value="Aprobado">Aprobado</option>
+                            <option value="Rechazado">Rechazado</option>
+                        </select>
+                        <select id="filter-area">
+                            <option value="all">Todas las áreas</option>
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Ingresar</button>
-                <div class="admin-link">
-                    <a href="#" id="back-to-main">Volver al Inicio</a>
-                </div>
-            </form>
-        </section>
-
-        <!-- Admin Dashboard -->
-        <section id="admin-dashboard" class="hidden fade-in">
-            <div class="section-card">
-                <h2 class="form-title"><i class="fas fa-chart-line"></i> Dashboard de Gestión</h2>
                 
-                <div class="dashboard-stats">
-                    <div class="stat-box">
-                        <h4>Total</h4>
-                        <div class="value" id="total-count">0</div>
-                    </div>
-                    <div class="stat-box">
-                        <h4>Pendientes</h4>
-                        <div class="value" id="pending-count" style="color: var(--status-pending);">0</div>
-                    </div>
-                    <div class="stat-box">
-                        <h4>Aprobadas</h4>
-                        <div class="value" id="approved-count" style="color: var(--status-approved);">0</div>
-                    </div>
-                </div>
-
-                <div style="height: 300px; margin-bottom: 2rem;">
-                    <canvas id="areaChart"></canvas>
-                </div>
-
                 <div class="table-responsive">
-                    <table id="suggestions-table">
+                    <table>
                         <thead>
                             <tr>
                                 <th>Fecha</th>
                                 <th>Colaborador</th>
                                 <th>Área</th>
+                                <th>Sugerencia</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="suggestions-body">
-                            <!-- Rows loaded here -->
+                        <tbody id="admin-table-body">
+                            <!-- Rows injected via JS -->
                         </tbody>
                     </table>
-                </div>
-
-                <div style="text-align: right; margin-top: 2rem;">
-                    <button class="btn" id="logout-btn" style="background: #e2e8f0; color: #475569;">Cerrar Sesión</button>
                 </div>
             </div>
         </section>
