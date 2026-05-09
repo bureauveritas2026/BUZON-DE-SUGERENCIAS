@@ -112,16 +112,11 @@ async function loadPublicWall() {
 
         grid.innerHTML = '';
         approved.reverse().forEach(s => {
-            const date = new Date(s.fecha).toLocaleDateString();
             const card = document.createElement('div');
             card.className = 'suggestion-card';
             card.innerHTML = `
                 <div class="area-badge">${s.area}</div>
                 <div class="suggestion-content">"${s.sugerencia}"</div>
-                <div class="suggestion-footer">
-                    <span>${s.nombre} ${s.apellido.charAt(0)}.</span>
-                    <span>${date}</span>
-                </div>
             `;
             grid.appendChild(card);
         });
@@ -137,7 +132,7 @@ async function loadAdminData() {
         const data = await response.json();
         
         document.getElementById('total-count').textContent = data.length;
-        document.getElementById('pending-count').textContent = data.filter(s => s.estado === 'Pendiente').length;
+        document.getElementById('pending-count').textContent = data.filter(s => s.estado === 'Pendiente' || s.estado === 'En Proceso').length;
         document.getElementById('approved-count').textContent = data.filter(s => s.estado === 'Aprobado').length;
 
         const tbody = document.getElementById('suggestions-body');
@@ -148,10 +143,11 @@ async function loadAdminData() {
                 <td>${new Date(s.fecha).toLocaleDateString()}</td>
                 <td>${s.nombre} ${s.apellido}</td>
                 <td>${s.area}</td>
-                <td><span class="badge bg-${s.estado.toLowerCase()}">${s.estado}</span></td>
-                <td>
-                    <button class="action-btn" onclick="updateStatus('${s.id}', 'Aprobado')" title="Aprobar"><i class="fas fa-check" style="color:green;"></i></button>
-                    <button class="action-btn" onclick="updateStatus('${s.id}', 'Rechazado')" title="Rechazar"><i class="fas fa-times" style="color:red;"></i></button>
+                <td><span class="badge bg-${s.estado.toLowerCase().replace(' ', '-')}">${s.estado}</span></td>
+                <td style="display: flex; gap: 0.5rem;">
+                    <button class="action-btn btn-check" onclick="updateStatus('${s.id}', 'Aprobado')" title="Aprobar"><i class="fas fa-check"></i></button>
+                    <button class="action-btn btn-clock" onclick="updateStatus('${s.id}', 'En Proceso')" title="En Proceso"><i class="fas fa-clock"></i></button>
+                    <button class="action-btn btn-x" onclick="updateStatus('${s.id}', 'Rechazado')" title="Rechazar"><i class="fas fa-times"></i></button>
                 </td>
             `;
             tbody.appendChild(tr);
