@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buzón de Sugerencias - GHL Holiday</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Buzón de Sugerencias</h1>
+            <p>Tu opinión es fundamental para nuestro crecimiento continuo.</p>
+        </header>
+
+        <!-- Form Section -->
+        <section id="form-section" class="active">
+            <div class="glass-card">
+                <form id="suggestion-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Ej. Juan">
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" id="apellido" name="apellido" required placeholder="Ej. Pérez">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="area">Área de Trabajo</label>
+                        <select id="area" name="area" required>
+                            <option value="" disabled selected>Seleccione su área</option>
+                            <option value="GRP">GRP</option>
+                            <option value="TH">TH</option>
+                            <option value="MTTO">MTTO</option>
+                            <option value="TI">TI</option>
+                            <option value="CONTRALORIA">CONTRALORIA</option>
+                            <option value="VENTAS">VENTAS</option>
+                            <option value="RESERVAS">RESERVAS</option>
+                            <option value="HK">HK</option>
+                            <option value="COCINA">COCINA</option>
+                            <option value="AYB">AYB</option>
+                            <option value="STEWARD">STEWARD</option>
+                            <option value="RECEPCION">RECEPCION</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sugerencia">Sugerencia</label>
+                        <textarea id="sugerencia" name="sugerencia" rows="5" required placeholder="Escribe aquí tu sugerencia..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Enviar Sugerencia
+                    </button>
+                </form>
+                <a class="nav-link" id="go-to-login">Acceso Administrativo</a>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login-section">
+            <div class="glass-card">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Acceso Administrativo</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username">Usuario</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ingresar</button>
+                    <a class="nav-link" id="go-to-form">Volver al Formulario</a>
+                </form>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard -->
+        <section id="admin-dashboard">
+            <div class="dashboard-grid">
+                <div class="glass-card stat-card">
+                    <h3>Total Sugerencias</h3>
+                    <div class="value" id="total-count">0</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <h3>Pendientes</h3>
+                    <div class="value" id="pending-count" style="color: var(--warning);">0</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <h3>Aprobadas</h3>
+                    <div class="value" id="approved-count" style="color: var(--accent);">0</div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-top: 2rem;">
+                <h3>Distribución por Áreas</h3>
+                <div style="max-height: 400px; position: relative; margin-top: 1rem;">
+                    <canvas id="areaChart"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-top: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>Listado de Sugerencias</h3>
+                    <button class="btn btn-primary" style="width: auto; padding: 0.5rem 1rem;" onclick="loadData()">
+                        <i class="fas fa-sync"></i> Actualizar
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table id="suggestions-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Colaborador</th>
+                                <th>Área</th>
+                                <th>Sugerencia</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="suggestions-body">
+                            <!-- Data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 2rem;" id="logout-btn">Cerrar Sesión</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
