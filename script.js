@@ -3,7 +3,7 @@
  */
 
 // Replace this with your Google Apps Script Web App URL after deployment
-const API_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwgsNi4aC3fCCn9haeifSoWaSVWGleRBM5KaHhlAxNWFFd5tpC62xpTRjVW1gFTtfhe/exec';
 
 // Auth credentials
 const ADMIN_USER = 'jefeTH';
