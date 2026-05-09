@@ -9,40 +9,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="app-wrapper">
         <header>
-            <h1>Buzón de Sugerencias</h1>
-            <p>Tu opinión es fundamental para nuestro crecimiento continuo.</p>
+            <h1>Sugerencias GHL</h1>
+            <p>Comparte tus ideas para mejorar nuestro ambiente y procesos de trabajo.</p>
         </header>
 
-        <nav class="main-nav">
-            <button class="nav-btn active" data-target="form-section">
-                <i class="fas fa-edit"></i> Nueva Sugerencia
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-target="form-section">
+                <i class="fas fa-plus"></i> Nueva Idea
             </button>
-            <button class="nav-btn" data-target="public-suggestions-section">
-                <i class="fas fa-trophy"></i> Muro de Éxito
+            <button class="tab-btn" data-target="wall-section">
+                <i class="fas fa-star"></i> Muro de Éxito
             </button>
         </nav>
 
         <!-- Form Section -->
-        <section id="form-section" class="app-section active">
-            <div class="glass-card">
+        <section id="form-section" class="section active">
+            <div class="card">
                 <form id="suggestion-form">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-grid">
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" required placeholder="Ej. Juan">
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
                         </div>
                         <div class="form-group">
                             <label for="apellido">Apellido</label>
-                            <input type="text" id="apellido" name="apellido" required placeholder="Ej. Pérez">
+                            <input type="text" id="apellido" name="apellido" required placeholder="Tu apellido">
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="area">Área de Trabajo</label>
                         <select id="area" name="area" required>
-                            <option value="" disabled selected>Seleccione su área</option>
+                            <option value="" disabled selected>Selecciona tu área</option>
                             <option value="GRP">GRP</option>
                             <option value="TH">TH</option>
                             <option value="MTTO">MTTO</option>
@@ -59,38 +59,34 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sugerencia">¿Cuál es tu idea?</label>
-                        <textarea id="sugerencia" name="sugerencia" rows="5" required placeholder="Describe tu propuesta detalladamente..."></textarea>
+                        <label for="sugerencia">¿Cuál es tu propuesta?</label>
+                        <textarea id="sugerencia" name="sugerencia" rows="6" required placeholder="Describe tu idea de forma clara y concisa..."></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary" id="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Enviar Sugerencia
+                        <span>Enviar propuesta</span>
+                        <i class="fas fa-arrow-right"></i>
                     </button>
                 </form>
-                <div class="admin-access-link">
-                    <a id="go-to-login">Acceso Administrativo <i class="fas fa-lock-open"></i></a>
-                </div>
+                <a class="admin-link" id="go-to-login">Acceso administrativo</a>
             </div>
         </section>
 
-        <!-- Public Approved Suggestions Section -->
-        <section id="public-suggestions-section" class="app-section">
-            <div class="section-header">
-                <h2>Muro de Sugerencias Aprobadas</h2>
-                <p>Ideas que están transformando nuestro lugar de trabajo.</p>
-            </div>
-            <div id="approved-suggestions-grid" class="suggestions-wall">
-                <!-- Approved cards will be loaded here -->
-                <div class="loading-state">
-                    <i class="fas fa-circle-notch fa-spin"></i> Cargando ideas brillantes...
+        <!-- Wall Section -->
+        <section id="wall-section" class="section">
+            <div id="wall-grid" class="wall-grid">
+                <!-- Cards will be injected here -->
+                <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: #94a3b8;">
+                    <i class="fas fa-circle-notch fa-spin fa-2x"></i>
+                    <p style="margin-top: 1rem;">Cargando historias de éxito...</p>
                 </div>
             </div>
         </section>
 
         <!-- Login Section -->
-        <section id="login-section" class="app-section">
-            <div class="glass-card">
-                <h2 style="text-align: center; margin-bottom: 2rem;">Acceso Administrativo</h2>
+        <section id="login-section" class="section">
+            <div class="card" style="max-width: 450px; margin: 0 auto;">
+                <h2 style="margin-bottom: 1.5rem; text-align: center;">Administración</h2>
                 <form id="login-form">
                     <div class="form-group">
                         <label for="username">Usuario</label>
@@ -100,61 +96,55 @@
                         <label for="password">Contraseña</label>
                         <input type="password" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Ingresar</button>
-                    <a class="nav-link" id="go-to-form">Volver al Formulario</a>
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    <a class="admin-link" id="back-to-form">Volver al inicio</a>
                 </form>
             </div>
         </section>
 
         <!-- Admin Dashboard -->
-        <section id="admin-dashboard">
-            <div class="dashboard-grid">
-                <div class="glass-card stat-card">
-                    <h3>Total Sugerencias</h3>
-                    <div class="value" id="total-count">0</div>
+        <section id="admin-dashboard" class="section">
+            <div class="admin-stats">
+                <div class="stat-item">
+                    <div class="stat-label">Total Sugerencias</div>
+                    <div class="stat-value" id="total-count">0</div>
                 </div>
-                <div class="glass-card stat-card">
-                    <h3>Pendientes</h3>
-                    <div class="value" id="pending-count" style="color: var(--warning);">0</div>
+                <div class="stat-item">
+                    <div class="stat-label">Pendientes</div>
+                    <div class="stat-value" id="pending-count" style="color: var(--warning);">0</div>
                 </div>
-                <div class="glass-card stat-card">
-                    <h3>Aprobadas</h3>
-                    <div class="value" id="approved-count" style="color: var(--accent);">0</div>
+                <div class="stat-item">
+                    <div class="stat-label">Aprobadas</div>
+                    <div class="stat-value" id="approved-count" style="color: var(--success);">0</div>
                 </div>
             </div>
 
-            <div class="glass-card" style="margin-top: 2rem;">
-                <h3>Distribución por Áreas</h3>
-                <div style="max-height: 400px; position: relative; margin-top: 1rem;">
+            <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Distribución por Áreas</h3>
+                <div style="height: 300px;">
                     <canvas id="areaChart"></canvas>
                 </div>
             </div>
 
-            <div class="glass-card" style="margin-top: 2rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                    <h3>Listado de Sugerencias</h3>
-                    <button class="btn btn-primary" style="width: auto; padding: 0.5rem 1rem;" onclick="loadData()">
-                        <i class="fas fa-sync"></i> Actualizar
-                    </button>
-                </div>
-                <div class="table-container">
-                    <table id="suggestions-table">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Colaborador</th>
-                                <th>Área</th>
-                                <th>Sugerencia</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="suggestions-body">
-                            <!-- Data will be loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-                <button class="btn btn-primary" style="margin-top: 2rem;" id="logout-btn">Cerrar Sesión</button>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Colaborador</th>
+                            <th>Área</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="suggestions-body">
+                        <!-- Admin rows injected here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="text-align: right; margin-top: 2rem;">
+                <button class="btn btn-primary" id="logout-btn" style="width: auto; background: #64748b;">Cerrar Sesión</button>
             </div>
         </section>
     </div>
