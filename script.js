@@ -22,6 +22,23 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // Navigation Logic
+const navButtons = document.querySelectorAll('.nav-btn');
+navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        navButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const target = btn.dataset.target;
+        showSection(target);
+    });
+});
+
+document.querySelectorAll('.back-to-form').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navButtons[0].click();
+    });
+});
+
 document.getElementById('show-login').addEventListener('click', (e) => {
     e.preventDefault();
     showSection('login-section');
@@ -29,20 +46,31 @@ document.getElementById('show-login').addEventListener('click', (e) => {
 
 document.getElementById('back-to-main').addEventListener('click', (e) => {
     e.preventDefault();
-    showSection('main-content');
+    navButtons[0].click();
 });
 
 document.getElementById('logout-btn').addEventListener('click', () => {
     sessionStorage.removeItem('isAdmin');
-    showSection('main-content');
+    navButtons[0].click();
 });
 
 function showSection(id) {
-    [mainContent, loginSection, adminDashboard].forEach(s => s.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
+    // Hide everything first
+    [mainContent, loginSection, adminDashboard, document.getElementById('wall-section')].forEach(s => {
+        if (s) {
+            s.classList.remove('active');
+            s.classList.add('hidden');
+        }
+    });
+
+    const target = document.getElementById(id);
+    if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('active');
+    }
     
     if (id === 'admin-dashboard') loadAdminData();
-    if (id === 'main-content') loadPublicWall();
+    if (id === 'wall-section') loadPublicWall();
 }
 
 // Form Submission
@@ -70,7 +98,6 @@ suggestionForm.addEventListener('submit', async (e) => {
         if (result.success) {
             alert('¡Gracias! Tu sugerencia ha sido enviada.');
             suggestionForm.reset();
-            loadPublicWall(); // Refresh wall in case it was approved instantly (unlikely but good practice)
         } else {
             alert('Error: ' + result.error);
         }
@@ -99,7 +126,8 @@ loginForm.addEventListener('submit', (e) => {
 // Public Wall Logic
 async function loadPublicWall() {
     const grid = document.getElementById('approved-suggestions-grid');
-    
+    grid.innerHTML = '<div style="text-align: center; grid-column: 1/-1; padding: 2rem; color: var(--brand-muted);"><i class="fas fa-spinner fa-spin"></i> Cargando historias de éxito...</div>';
+
     try {
         const response = await fetch(API_URL);
         const data = await response.json();

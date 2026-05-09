@@ -15,9 +15,18 @@
             <p>Tu voz ayuda a construir un mejor lugar para todos.</p>
         </header>
 
-        <!-- Main Submission Page -->
-        <main id="main-content" class="fade-in">
-            <!-- Form Section -->
+        <!-- Navigation Tabs -->
+        <nav class="main-nav">
+            <button class="nav-btn active" data-target="main-content">
+                <i class="fas fa-edit"></i> Enviar Sugerencia
+            </button>
+            <button class="nav-btn" data-target="wall-section">
+                <i class="fas fa-award"></i> Muro de Éxito
+            </button>
+        </nav>
+
+        <!-- Form Section -->
+        <main id="main-content" class="app-section active">
             <section class="section-card">
                 <h2 class="form-title"><i class="fas fa-edit"></i> Envía tu Sugerencia</h2>
                 <form id="suggestion-form">
@@ -58,24 +67,27 @@
                     </button>
                 </form>
             </section>
-
-            <!-- Wall of Fame Section -->
-            <section id="wall-section" class="fade-in">
-                <div class="wall-header">
-                    <h2 style="color: var(--brand-primary);"><i class="fas fa-award"></i> Sugerencias Aprobadas</h2>
-                </div>
-                <div id="approved-suggestions-grid" class="wall-grid">
-                    <!-- Approved cards will be injected here -->
-                    <div style="text-align: center; grid-column: 1/-1; padding: 2rem; color: var(--brand-muted);">
-                        <i class="fas fa-spinner fa-spin"></i> Cargando historias de éxito...
-                    </div>
-                </div>
-            </section>
-
+            
             <div class="admin-link">
                 <a href="#" id="show-login">Acceso Administrativo</a>
             </div>
         </main>
+
+        <!-- Wall of Fame Section -->
+        <section id="wall-section" class="app-section">
+            <div class="wall-header">
+                <h2 style="color: var(--brand-primary);"><i class="fas fa-award"></i> Sugerencias Aprobadas</h2>
+            </div>
+            <div id="approved-suggestions-grid" class="wall-grid">
+                <!-- Approved cards will be injected here -->
+                <div style="text-align: center; grid-column: 1/-1; padding: 2rem; color: var(--brand-muted);">
+                    <i class="fas fa-spinner fa-spin"></i> Cargando historias de éxito...
+                </div>
+            </div>
+            <div class="admin-link">
+                <a href="#" class="back-to-form">Volver al Formulario</a>
+            </div>
+        </section>
 
         <!-- Admin Login Section -->
         <section id="login-section" class="section-card hidden fade-in" style="max-width: 500px; margin: 2rem auto;">
