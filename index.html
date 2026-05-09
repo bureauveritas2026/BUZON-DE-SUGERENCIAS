@@ -9,142 +9,137 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="app-wrapper">
+    <div class="container">
         <header>
-            <h1>Sugerencias GHL</h1>
-            <p>Comparte tus ideas para mejorar nuestro ambiente y procesos de trabajo.</p>
+            <h1>Buzón de Sugerencias</h1>
+            <p>Tu voz ayuda a construir un mejor lugar para todos.</p>
         </header>
 
-        <nav class="tab-nav">
-            <button class="tab-btn active" data-target="form-section">
-                <i class="fas fa-plus"></i> Nueva Idea
-            </button>
-            <button class="tab-btn" data-target="wall-section">
-                <i class="fas fa-star"></i> Muro de Éxito
-            </button>
-        </nav>
-
-        <!-- Form Section -->
-        <section id="form-section" class="section active">
-            <div class="card">
+        <!-- Main Submission Page -->
+        <main id="main-content" class="fade-in">
+            <!-- Form Section -->
+            <section class="section-card">
+                <h2 class="form-title"><i class="fas fa-edit"></i> Envía tu Sugerencia</h2>
                 <form id="suggestion-form">
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                            <input type="text" id="nombre" name="nombre" required placeholder="Escribe tu nombre">
                         </div>
                         <div class="form-group">
                             <label for="apellido">Apellido</label>
-                            <input type="text" id="apellido" name="apellido" required placeholder="Tu apellido">
+                            <input type="text" id="apellido" name="apellido" required placeholder="Escribe tu apellido">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="area">Área de Trabajo</label>
+                            <select id="area" name="area" required>
+                                <option value="" disabled selected>Selecciona tu área</option>
+                                <option value="GRP">GRP</option>
+                                <option value="TH">TH</option>
+                                <option value="MTTO">MTTO</option>
+                                <option value="TI">TI</option>
+                                <option value="CONTRALORIA">CONTRALORIA</option>
+                                <option value="VENTAS">VENTAS</option>
+                                <option value="RESERVAS">RESERVAS</option>
+                                <option value="HK">HK</option>
+                                <option value="COCINA">COCINA</option>
+                                <option value="AYB">AYB</option>
+                                <option value="STEWARD">STEWARD</option>
+                                <option value="RECEPCION">RECEPCION</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="sugerencia">¿Qué sugerencia tienes?</label>
+                            <textarea id="sugerencia" name="sugerencia" rows="5" required placeholder="Describe tu idea aquí..."></textarea>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="area">Área de Trabajo</label>
-                        <select id="area" name="area" required>
-                            <option value="" disabled selected>Selecciona tu área</option>
-                            <option value="GRP">GRP</option>
-                            <option value="TH">TH</option>
-                            <option value="MTTO">MTTO</option>
-                            <option value="TI">TI</option>
-                            <option value="CONTRALORIA">CONTRALORIA</option>
-                            <option value="VENTAS">VENTAS</option>
-                            <option value="RESERVAS">RESERVAS</option>
-                            <option value="HK">HK</option>
-                            <option value="COCINA">COCINA</option>
-                            <option value="AYB">AYB</option>
-                            <option value="STEWARD">STEWARD</option>
-                            <option value="RECEPCION">RECEPCION</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="sugerencia">¿Cuál es tu propuesta?</label>
-                        <textarea id="sugerencia" name="sugerencia" rows="6" required placeholder="Describe tu idea de forma clara y concisa..."></textarea>
-                    </div>
-
                     <button type="submit" class="btn btn-primary" id="submit-btn">
-                        <span>Enviar propuesta</span>
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-paper-plane"></i> Enviar Sugerencia
                     </button>
                 </form>
-                <a class="admin-link" id="go-to-login">Acceso administrativo</a>
-            </div>
-        </section>
+            </section>
 
-        <!-- Wall Section -->
-        <section id="wall-section" class="section">
-            <div id="wall-grid" class="wall-grid">
-                <!-- Cards will be injected here -->
-                <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: #94a3b8;">
-                    <i class="fas fa-circle-notch fa-spin fa-2x"></i>
-                    <p style="margin-top: 1rem;">Cargando historias de éxito...</p>
+            <!-- Wall of Fame Section -->
+            <section id="wall-section" class="fade-in">
+                <div class="wall-header">
+                    <h2 style="color: var(--brand-primary);"><i class="fas fa-award"></i> Sugerencias Aprobadas</h2>
                 </div>
-            </div>
-        </section>
+                <div id="approved-suggestions-grid" class="wall-grid">
+                    <!-- Approved cards will be injected here -->
+                    <div style="text-align: center; grid-column: 1/-1; padding: 2rem; color: var(--brand-muted);">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando historias de éxito...
+                    </div>
+                </div>
+            </section>
 
-        <!-- Login Section -->
-        <section id="login-section" class="section">
-            <div class="card" style="max-width: 450px; margin: 0 auto;">
-                <h2 style="margin-bottom: 1.5rem; text-align: center;">Administración</h2>
-                <form id="login-form">
-                    <div class="form-group">
-                        <label for="username">Usuario</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                    <a class="admin-link" id="back-to-form">Volver al inicio</a>
-                </form>
+            <div class="admin-link">
+                <a href="#" id="show-login">Acceso Administrativo</a>
             </div>
+        </main>
+
+        <!-- Admin Login Section -->
+        <section id="login-section" class="section-card hidden fade-in" style="max-width: 500px; margin: 2rem auto;">
+            <h2 class="form-title"><i class="fas fa-lock"></i> Administración</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Usuario</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+                <div class="admin-link">
+                    <a href="#" id="back-to-main">Volver al Inicio</a>
+                </div>
+            </form>
         </section>
 
         <!-- Admin Dashboard -->
-        <section id="admin-dashboard" class="section">
-            <div class="admin-stats">
-                <div class="stat-item">
-                    <div class="stat-label">Total Sugerencias</div>
-                    <div class="stat-value" id="total-count">0</div>
+        <section id="admin-dashboard" class="hidden fade-in">
+            <div class="section-card">
+                <h2 class="form-title"><i class="fas fa-chart-line"></i> Dashboard de Gestión</h2>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-box">
+                        <h4>Total</h4>
+                        <div class="value" id="total-count">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>Pendientes</h4>
+                        <div class="value" id="pending-count" style="color: var(--status-pending);">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>Aprobadas</h4>
+                        <div class="value" id="approved-count" style="color: var(--status-approved);">0</div>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-label">Pendientes</div>
-                    <div class="stat-value" id="pending-count" style="color: var(--warning);">0</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Aprobadas</div>
-                    <div class="stat-value" id="approved-count" style="color: var(--success);">0</div>
-                </div>
-            </div>
 
-            <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
-                <h3 style="margin-bottom: 1.5rem;">Distribución por Áreas</h3>
-                <div style="height: 300px;">
+                <div style="height: 300px; margin-bottom: 2rem;">
                     <canvas id="areaChart"></canvas>
                 </div>
-            </div>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Colaborador</th>
-                            <th>Área</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="suggestions-body">
-                        <!-- Admin rows injected here -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <div style="text-align: right; margin-top: 2rem;">
-                <button class="btn btn-primary" id="logout-btn" style="width: auto; background: #64748b;">Cerrar Sesión</button>
+                <div class="table-responsive">
+                    <table id="suggestions-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Colaborador</th>
+                                <th>Área</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="suggestions-body">
+                            <!-- Rows loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: right; margin-top: 2rem;">
+                    <button class="btn" id="logout-btn" style="background: #e2e8f0; color: #475569;">Cerrar Sesión</button>
+                </div>
             </div>
         </section>
     </div>
