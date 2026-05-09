@@ -15,8 +15,17 @@
             <p>Tu opinión es fundamental para nuestro crecimiento continuo.</p>
         </header>
 
+        <nav class="main-nav">
+            <button class="nav-btn active" data-target="form-section">
+                <i class="fas fa-edit"></i> Nueva Sugerencia
+            </button>
+            <button class="nav-btn" data-target="public-suggestions-section">
+                <i class="fas fa-trophy"></i> Muro de Éxito
+            </button>
+        </nav>
+
         <!-- Form Section -->
-        <section id="form-section" class="active">
+        <section id="form-section" class="app-section active">
             <div class="glass-card">
                 <form id="suggestion-form">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
@@ -50,20 +59,36 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sugerencia">Sugerencia</label>
-                        <textarea id="sugerencia" name="sugerencia" rows="5" required placeholder="Escribe aquí tu sugerencia..."></textarea>
+                        <label for="sugerencia">¿Cuál es tu idea?</label>
+                        <textarea id="sugerencia" name="sugerencia" rows="5" required placeholder="Describe tu propuesta detalladamente..."></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary" id="submit-btn">
                         <i class="fas fa-paper-plane"></i> Enviar Sugerencia
                     </button>
                 </form>
-                <a class="nav-link" id="go-to-login">Acceso Administrativo</a>
+                <div class="admin-access-link">
+                    <a id="go-to-login">Acceso Administrativo <i class="fas fa-lock-open"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Public Approved Suggestions Section -->
+        <section id="public-suggestions-section" class="app-section">
+            <div class="section-header">
+                <h2>Muro de Sugerencias Aprobadas</h2>
+                <p>Ideas que están transformando nuestro lugar de trabajo.</p>
+            </div>
+            <div id="approved-suggestions-grid" class="suggestions-wall">
+                <!-- Approved cards will be loaded here -->
+                <div class="loading-state">
+                    <i class="fas fa-circle-notch fa-spin"></i> Cargando ideas brillantes...
+                </div>
             </div>
         </section>
 
         <!-- Login Section -->
-        <section id="login-section">
+        <section id="login-section" class="app-section">
             <div class="glass-card">
                 <h2 style="text-align: center; margin-bottom: 2rem;">Acceso Administrativo</h2>
                 <form id="login-form">

@@ -24,18 +24,34 @@ const logoutBtn = document.getElementById('logout-btn');
 let areaChartInstance = null;
 
 // Navigation
+const navButtons = document.querySelectorAll('.nav-btn');
+navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        navButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        switchSection(btn.dataset.target);
+    });
+});
+
 goToLogin.addEventListener('click', () => switchSection('login'));
-goToForm.addEventListener('click', () => switchSection('form'));
 logoutBtn.addEventListener('click', () => {
     sessionStorage.removeItem('isAdmin');
     switchSection('form');
 });
 
 function switchSection(section) {
-    [formSection, loginSection, adminDashboard].forEach(s => s.classList.remove('active'));
+    [formSection, loginSection, adminDashboard, document.getElementById('public-suggestions-section')].forEach(s => s.classList.remove('active'));
     
-    if (section === 'form') formSection.classList.add('active');
-    if (section === 'login') loginSection.classList.add('active');
+    if (section === 'form-section') {
+        formSection.classList.add('active');
+    }
+    if (section === 'login') {
+        loginSection.classList.add('active');
+    }
+    if (section === 'public-suggestions-section') {
+        document.getElementById('public-suggestions-section').classList.add('active');
+        loadPublicData();
+    }
     if (section === 'admin') {
         if (sessionStorage.getItem('isAdmin')) {
             adminDashboard.classList.add('active');
@@ -43,6 +59,42 @@ function switchSection(section) {
         } else {
             loginSection.classList.add('active');
         }
+    }
+}
+
+// Public Data Loading
+async function loadPublicData() {
+    const grid = document.getElementById('approved-suggestions-grid');
+    grid.innerHTML = '<div class="loading-state"><i class="fas fa-circle-notch fa-spin"></i> Cargando ideas brillantes...</div>';
+
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        
+        const approved = data.filter(s => s.estado === 'Aprobado');
+        
+        if (approved.length === 0) {
+            grid.innerHTML = '<div class="loading-state">Aún no hay sugerencias aprobadas. ¡Sé el primero en inspirarnos!</div>';
+            return;
+        }
+
+        grid.innerHTML = '';
+        approved.forEach(s => {
+            const date = new Date(s.fecha).toLocaleDateString();
+            const card = document.createElement('div');
+            card.className = 'suggestion-card';
+            card.innerHTML = `
+                <div class="card-area">${s.area}</div>
+                <div class="card-text">"${s.sugerencia}"</div>
+                <div class="card-footer">
+                    <div class="card-author">${s.nombre} ${s.apellido.charAt(0)}.</div>
+                    <div class="card-date">${date}</div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    } catch (err) {
+        grid.innerHTML = '<div class="loading-state">Error al cargar las sugerencias.</div>';
     }
 }
 

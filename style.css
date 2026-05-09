@@ -132,108 +132,247 @@ input:focus, select:focus, textarea:focus {
     transform: translateY(0);
 }
 
+/* Navigation Tabs */
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+}
+
+.nav-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px -5px rgba(99, 102, 241, 0.4);
+}
+
+/* Public Suggestions Wall */
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.suggestions-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.suggestion-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.suggestion-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+.suggestion-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-size: 5rem;
+    font-family: serif;
+    color: rgba(255, 255, 255, 0.05);
+    line-height: 1;
+}
+
+.card-area {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+    margin-bottom: 0.8rem;
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 6px;
+}
+
+.card-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.card-footer {
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-author {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.card-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
 /* Dashboard Styles */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
 }
 
 .stat-card {
-    padding: 1.5rem;
+    padding: 2rem;
     text-align: center;
+    border-radius: 24px;
 }
 
 .stat-card h3 {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
     color: var(--text-muted);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .stat-card .value {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 800;
-    color: var(--primary);
 }
 
 .table-container {
     overflow-x: auto;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
 }
 
 th, td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--glass-border);
+    padding: 1.2rem 1rem;
+    background: rgba(15, 23, 42, 0.4);
 }
 
 th {
+    background: transparent;
     color: var(--text-muted);
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
+
+td:first-child { border-radius: 12px 0 0 12px; }
+td:last-child { border-radius: 0 12px 12px 0; }
 
 .status-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
-.status-pendiente { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-.status-aprobado { background: rgba(16, 185, 129, 0.2); color: #10b981; }
-.status-rechazado { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+.status-pendiente { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+.status-aprobado { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.status-rechazado { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+.status-en-proceso { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
 
 .action-btn {
-    padding: 0.4rem;
-    border-radius: 8px;
-    border: none;
+    padding: 0.6rem;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
     cursor: pointer;
-    margin-right: 0.25rem;
-    transition: transform 0.2s;
+    margin-right: 0.4rem;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .action-btn:hover {
-    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }
 
-.btn-check { background: rgba(16, 185, 129, 0.2); color: #10b981; }
-.btn-x { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-.btn-clock { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-
-/* Login Modal */
-#login-section {
+/* Sections */
+.app-section {
     display: none;
-    max-width: 400px;
-    margin: 0 auto;
+    width: 100%;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-#form-section, #admin-dashboard {
-    display: none;
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-#form-section.active, #login-section.active, #admin-dashboard.active {
+#form-section.active, #login-section.active, #admin-dashboard.active, #public-suggestions-section.active {
     display: block;
 }
 
-.nav-link {
-    color: var(--primary);
-    cursor: pointer;
-    text-decoration: underline;
-    font-size: 0.9rem;
-    margin-top: 1rem;
-    display: block;
+.admin-access-link {
     text-align: center;
+    margin-top: 1.5rem;
+}
+
+.admin-access-link a {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.admin-access-link a:hover {
+    color: var(--primary);
+}
+
+.loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
 }
 
 @media (max-width: 768px) {
